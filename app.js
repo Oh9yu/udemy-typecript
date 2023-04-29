@@ -1,32 +1,15 @@
-//객체 타입을 설정할 때 먼저 값에 대한 타입을 설정하고 값을 설정한다
-var Gender;
-(function (Gender) {
-    Gender[Gender["MEN"] = 1] = "MEN";
-    Gender[Gender["WOMEN"] = 2] = "WOMEN";
-})(Gender || (Gender = {}));
-var person = {
-    name: "kwon",
-    age: 17,
-    hobbies: ["soccer", "cook", 1],
-    role: [2, "author"],
-    gender: 1,
+//유니언 타입 ==> 복합 타입
+var combine = function (input1, input2, resultType) {
+    var result;
+    if (resultType === "as-number") {
+        result = +input1 + +input2;
+    }
+    else
+        result = input1.toString() + input2.toString();
+    return result;
 };
-console.log(person.name);
-person.hobbies.map(function (value) {
-    console.log(value);
-});
-if (person.gender === 1) {
-    console.log("남");
-}
-//중첩 객체 타입
-var product = {
-    id: "a123",
-    price: 1000,
-    quantity: 2,
-    tag: ["row", "black"],
-    details: {
-        title: "shoes",
-        desc: "dunk row",
-    },
-};
-console.log(product);
+var combinedNumberAges = combine(10, 29, "as-number");
+console.log(combinedNumberAges);
+var combinedStringAges = combine("kwon", "kim", "as-text");
+console.log(combinedStringAges);
+//리터럴 타입 ==> 고정값을 가지는 타입

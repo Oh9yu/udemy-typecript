@@ -1,54 +1,29 @@
-//객체 타입을 설정할 때 먼저 값에 대한 타입을 설정하고 값을 설정한다
-enum Gender {
-  MEN = 1,
-  WOMEN = 2,
-}
+//type 별칭
+type Combinable = number | string;
+type ConversionDesc = "as-number" | "as-text";
 
-const person: {
-  name: string;
-  age: number;
-  hobbies: any[]; //배열타입 ==>  string[] , number[] , any[]
-  role: [number, string]; //튜플타입==> 길이가 고정된 배열
-  //Enum 타입 ==> enum{new, old} 열거할 때 사용
-  gender: Gender;
-} = {
-  name: "kwon",
-  age: 17,
-  hobbies: ["soccer", "cook", 1],
-  role: [2, "author"],
-  gender: 1,
+const combine = (
+  //유니언 타입 ==> 복합 타입
+  input1: Combinable,
+  input2: Combinable,
+  //리터럴 타입 ==> 고정값을 가지는 타입
+  resultType: ConversionDesc
+) => {
+  let result;
+
+  if (resultType === "as-number") {
+    result = +input1 + +input2;
+  } else if (resultType === "as-text") {
+    result = input1.toString() + input2.toString();
+  }
+
+  return result;
 };
 
-console.log(person.name);
+const combinedNumberAges = combine(10, 29, "as-number");
 
-person.hobbies.map((value) => {
-  console.log(value);
-});
+console.log(combinedNumberAges);
 
-if (person.gender === 1) {
-  console.log("남");
-}
+const combinedStringAges = combine("kwon", "kim", "as-text");
 
-//중첩 객체 타입
-
-const product: {
-  id: string;
-  price: number;
-  quantity: number;
-  tag: string[];
-  details: {
-    title: string;
-    desc: string;
-  };
-} = {
-  id: "a123",
-  price: 1000,
-  quantity: 2,
-  tag: ["row", "black"],
-  details: {
-    title: "shoes",
-    desc: "dunk row",
-  },
-};
-
-console.log(product);
+console.log(combinedStringAges);
